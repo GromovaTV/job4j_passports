@@ -1,30 +1,14 @@
-package ru.job4j.passports.model;
+package ru.job4j.client.model;
 
-import javax.persistence.*;
 import java.sql.Date;
 import java.util.Objects;
 
-@Entity
-@Table(name = "passports")
 public class Passport {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
-
-    @Column(name = "series", unique = true, nullable = false)
     private Integer series;
-
-    @Column(name = "number", unique = true, nullable = false)
     private Integer number;
-
-    @Column(name = "name", nullable = false, length = 2000)
     private String name;
-
-    @Column(name = "surname", nullable = false, length = 2000)
     private String surname;
-
-    @Column(name = "expired")
     private Date expired;
 
     public static Passport of(int series, int number, String name, String surname, Date expired) {

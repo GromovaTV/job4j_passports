@@ -1,12 +1,13 @@
-package ru.job4j.passports.controller;
+package ru.job4j.server.controller;
 
-import ru.job4j.passports.model.Passport;
+import ru.job4j.server.model.Passport;
+import ru.job4j.server.service.PassportsService;
 import org.springframework.web.bind.annotation.*;
-import ru.job4j.passports.service.PassportsService;
+
 import java.util.List;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("")
 public class PassportsController {
     private final PassportsService service;
 
