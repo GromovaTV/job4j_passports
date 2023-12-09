@@ -1,5 +1,6 @@
 package ru.job4j.server.controller;
 
+import org.springframework.http.ResponseEntity;
 import ru.job4j.server.model.Passport;
 import ru.job4j.server.service.PassportsService;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,34 @@ public class PassportsController {
     }
 
     @GetMapping("/find")
-    public List<Passport> getAll() {
-        return (List<Passport>) service.getAll();
+    public List<Passport> find() {
+        return service.find();
+    }
+
+    @GetMapping("/find-by-series")
+    public List<Passport> findBySeries(@RequestParam Integer series) {
+        return service.findBySeries(series);
+    }
+
+    @GetMapping("/unavailable")
+    public List<Passport> findExpired() {
+        return service.findExpired();
+    }
+
+    @GetMapping("/find-replaceable")
+    public List<Passport> findReplaceable() {
+        return service.findReplaceable();
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<Void> update(@RequestBody Passport passport) {
+        service.update(passport);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<Void> delete(@RequestParam Long id) {
+        service.delete(id);
+        return ResponseEntity.ok().build();
     }
 }

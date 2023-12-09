@@ -24,16 +24,16 @@ public class Passport {
     @Column(name = "surname", nullable = false, length = 2000)
     private String surname;
 
-    @Column(name = "expired")
-    private Date expired;
+    @Column(name = "expiration")
+    private Date expiration;
 
-    public static Passport of(int series, int number, String name, String surname, Date expired) {
+    public static Passport of(int series, int number, String name, String surname, Date expiration) {
         Passport passport = new Passport();
         passport.name = name;
         passport.surname = surname;
         passport.series = series;
         passport.number = number;
-        passport.expired = expired;
+        passport.expiration = expiration;
         return passport;
     }
 
@@ -77,12 +77,12 @@ public class Passport {
         this.surname = surname;
     }
 
-    public Date getExpired() {
-        return expired;
+    public Date getExpiration() {
+        return expiration;
     }
 
-    public void setExpired(Date expired) {
-        this.expired = expired;
+    public void setExpiration(Date expiration) {
+        this.expiration = expiration;
     }
 
     @Override
@@ -95,12 +95,12 @@ public class Passport {
                 Objects.equals(number, passport.number) &&
                 Objects.equals(name, passport.name) &&
                 Objects.equals(surname, passport.surname) &&
-                Objects.equals(expired, passport.expired);
+                Objects.equals(expiration, passport.expiration);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, series, number, name, surname, expired);
+        return Objects.hash(id, series, number, name, surname, expiration);
     }
 
     @Override
@@ -111,7 +111,7 @@ public class Passport {
                 + ", number=" + number
                 + ", name='" + name + '\''
                 + ", surname='" + surname + '\''
-                + ", expired=" + expired
+                + ", expiration=" + expiration
                 + '}';
     }
 }
