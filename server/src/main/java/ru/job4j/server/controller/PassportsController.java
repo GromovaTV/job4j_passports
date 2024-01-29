@@ -1,15 +1,16 @@
 package ru.job4j.server.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import ru.job4j.server.model.Passport;
 import ru.job4j.server.service.PassportsService;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("")
 public class PassportsController {
+
     private final PassportsService service;
 
     public PassportsController(PassportsService service) {
@@ -31,7 +32,7 @@ public class PassportsController {
         return service.findBySeries(series);
     }
 
-    @GetMapping("/unavailable")
+    @GetMapping("/find-expired")
     public List<Passport> findExpired() {
         return service.findExpired();
     }

@@ -7,6 +7,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "passports")
 public class Passport {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -27,7 +28,8 @@ public class Passport {
     @Column(name = "expiration")
     private Date expiration;
 
-    public static Passport of(int series, int number, String name, String surname, Date expiration) {
+    public static Passport of(int series, int number, String name,
+                              String surname, Date expiration) {
         Passport passport = new Passport();
         passport.name = name;
         passport.surname = surname;
@@ -87,15 +89,19 @@ public class Passport {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Passport passport = (Passport) o;
-        return Objects.equals(id, passport.id) &&
-                Objects.equals(series, passport.series) &&
-                Objects.equals(number, passport.number) &&
-                Objects.equals(name, passport.name) &&
-                Objects.equals(surname, passport.surname) &&
-                Objects.equals(expiration, passport.expiration);
+        return Objects.equals(id, passport.id)
+                && Objects.equals(series, passport.series)
+                && Objects.equals(number, passport.number)
+                && Objects.equals(name, passport.name)
+                && Objects.equals(surname, passport.surname)
+                && Objects.equals(expiration, passport.expiration);
     }
 
     @Override

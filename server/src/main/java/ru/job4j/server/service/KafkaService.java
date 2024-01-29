@@ -11,6 +11,7 @@ import java.util.List;
 
 @Component
 public class KafkaService {
+
     private final PassportsStore store;
 
     @Autowired
@@ -21,7 +22,7 @@ public class KafkaService {
     }
 
     @Scheduled(fixedDelay = 60_000)
-    public void sendOrder(){
+    public void sendOrder() {
         System.out.println("start sendOrder");
         List<Passport> passports = store.findExpired();
         System.out.println("passport size: " + passports.size());

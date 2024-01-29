@@ -14,16 +14,16 @@ import java.util.List;
 @RequestMapping("/api")
 public class ClientController {
 
-    @Autowired
-    private RestTemplate rest;
-
     private static final String API = "http://localhost:8080/find";
     private static final String API_SERIES = "http://localhost:8080/find-by-series";
-    private static final String API_UNVB = "http://localhost:8080/unavailable";
+    private static final String API_EXP = "http://localhost:8080/find-expired";
     private static final String API_RPL = "http://localhost:8080/find-replaceable";
     private static final String API_SAVE = "http://localhost:8080/save";
-    private static final String API_UPD= "http://localhost:8080/update";
+    private static final String API_UPD = "http://localhost:8080/update";
     private static final String API_DEL = "http://localhost:8080/delete";
+
+    @Autowired
+    private RestTemplate rest;
 
     @GetMapping("/find")
     public List<Passport> findAll() {
@@ -43,10 +43,10 @@ public class ClientController {
         return passports;
     }
 
-    @GetMapping("/unavailable")
+    @GetMapping("/find-expired")
     public List<Passport> findExpired() {
         List<Passport> passports = rest.exchange(
-                API_UNVB,
+                API_EXP,
                 HttpMethod.GET, null, new ParameterizedTypeReference<List<Passport>>() { }
         ).getBody();
         return passports;

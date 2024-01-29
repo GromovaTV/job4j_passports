@@ -5,8 +5,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MailService {
-    @KafkaListener(topics="expired")
-    public void msgListener(String msg){
+
+    @KafkaListener(topics = "expired")
+    public void msgListener(String msg) {
         System.out.println(msg);
     }
 }
