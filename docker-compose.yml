@@ -1,0 +1,35 @@
+version: "3.9"
+services:
+  db:
+    image: postgres
+    container_name: db
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=job4j_passport
+      - PGDATA=/var/lib/postgresql/data
+    volumes:
+      - ./db/shortcut/data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: always
+
+  server:
+    image: job4j_passport_server
+    container_name: server
+    environment:
+      - DB_URL=jdbc:postgresql://db:5432/job4j_passport
+      - DB_USER=postgres
+      - DB_PASSWORD=password
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+  client:
+    image: job4j_passport_client
+    container_name: client
+    environment:
+      - SERVER_PASSPORT_URL=http://server:8080
+    ports:
+      - "8082:8082"

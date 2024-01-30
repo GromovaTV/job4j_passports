@@ -1,0 +1,7 @@
+version: "3.9"
+services:
+  mail:
+    image: job4j_passport_mail
+    container_name: mail
+    ports:
+      - "8084:8084"
