@@ -8,8 +8,8 @@ Passport management service.
 * Docker
 * Kafka
 * Spring Boot Data JPA
-* Spring Boot
-* Java
+* Spring Boot 2
+* Java 17
 * Hibernate, PostgreSQL
 * Liquibase
 * Swagger
