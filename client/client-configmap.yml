@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: client-configmap
 data:
-  SERVER_PASSPORT_URL: http://passport-service:8080
+  SERVER_PASSPORT_URL: http://passport-service:8080/

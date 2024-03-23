@@ -1,4 +1,4 @@
-FROM openjdk
-WORKDIR client
-ADD target/client-1.jar client.jar
-ENTRYPOINT java -jar client.jar
+FROM eclipse-temurin:17.0.6_10-jre
+WORKDIR /client
+COPY target/*.jar /client/app.jar
+ENTRYPOINT java -jar /client/app.jar

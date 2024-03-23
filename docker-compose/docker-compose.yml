@@ -1,0 +1,66 @@
+version: "3.9"
+services:
+  client:
+    image: ${CLIENT_PROJECT_NAME}
+    container_name: ${CLIENT_PROJECT_NAME}
+    restart: unless-stopped
+#    ports:
+#      - "8082:8082"
+    build:
+      context: ./client/
+      dockerfile: Dockerfile
+    networks:
+      - traefik
+      - kafka
+    environment:
+      SERVER_PASSPORT_URL: "http://${SERVER_PROJECT_NAME}:8080/"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.${CLIENT_PROJECT_NAME}.rule=Host(`${CLIENT_PROJECT_NAME}.${TRAEFIK_CLIENT_HOST_SUFFIX}`)"
+      - "traefik.http.routers.${CLIENT_PROJECT_NAME}.entrypoints=https"
+      - "traefik.http.routers.${CLIENT_PROJECT_NAME}.service=${CLIENT_PROJECT_NAME}"
+      - "traefik.http.routers.${CLIENT_PROJECT_NAME}.tls.certresolver=myresolver"
+      - "traefik.http.services.${CLIENT_PROJECT_NAME}.loadbalancer.server.port=8082"
+
+  server:
+    image: ${SERVER_PROJECT_NAME}
+    container_name: ${SERVER_PROJECT_NAME}
+    restart: unless-stopped
+#    ports:
+#      - "8080:8080"
+    build:
+      context: ./server/
+      dockerfile: Dockerfile
+    networks:
+      - traefik
+      - postgres
+      - kafka
+    environment:
+      KAFKA_URL: "${KAFKA_URL}"
+      DB_URL: "${DB_URL}"
+      DB_USER: "${DB_USER}"
+      DB_PASSWORD: "${DB_PASSWORD}"
+
+  mail:
+    image: ${MAIL_PROJECT_NAME}
+    container_name: ${MAIL_PROJECT_NAME}
+    restart: unless-stopped
+#    ports:
+#      - "8084:8084"
+    build:
+      context: ./mail/
+      dockerfile: Dockerfile
+    networks:
+      - traefik
+      - kafka
+    environment:
+      KAFKA_URL: "${KAFKA_URL}"
+
+
+networks:
+  postgres:
+    external: true
+  traefik:
+    external: true
+  kafka:
+    external: true

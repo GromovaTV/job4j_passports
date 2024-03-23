@@ -1,0 +1,45 @@
+version: '3.8'
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper
+    container_name: zookeeper
+    restart: unless-stopped
+#    ports:
+#      - 2181:2181
+    volumes:
+      - zookeeper-conf:/opt/zookeeper-3.4.13/conf
+      - zookeeper-data:/opt/zookeeper-3.4.13/data
+
+  kafka:
+    image: wurstmeister/kafka
+    container_name: kafka
+#    ports:
+#      - 9092:9092
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ADVERTISED_HOST_NAME: kafka
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+      KAFKA_LOG_DIRS: /logs
+    depends_on:
+      - zookeeper
+    volumes:
+      - kafka-data:/kafka
+      - kafka-logs:/logs
+
+
+volumes:
+  zookeeper-data:
+    external: true
+  zookeeper-conf:
+    external: true
+  kafka-data:
+    external: true
+  kafka-logs:
+    external: true
+
+networks:
+  default:
+    name: traefik
+    external: true

@@ -1,4 +1,4 @@
-FROM openjdk
-WORKDIR mail
-ADD target/mail-1.jar mail.jar
-ENTRYPOINT java -jar mail.jar
+FROM eclipse-temurin:17.0.6_10-jre
+WORKDIR /mail
+ADD target/*.jar /mail/app.jar
+ENTRYPOINT java -jar /mail/app.jar

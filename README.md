@@ -37,9 +37,7 @@ DELETE: /api/passport/{id}
 
 ## Accessing the API via Swagger:
 
-http://localhost:8080/swagger-ui/index.html
-
-http://localhost:8082/swagger-ui/index.html
+https://passport-client.195-2-71-38.traefik.me/swagger-ui/index.html
 
 
 ## Installation Instructions

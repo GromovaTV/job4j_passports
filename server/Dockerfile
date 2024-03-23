@@ -1,4 +1,4 @@
-FROM openjdk
-WORKDIR server
-ADD target/server-1.jar server.jar
-ENTRYPOINT java -jar server.jar
+FROM eclipse-temurin:17.0.6_10-jre
+WORKDIR /server
+COPY target/*.jar /server/app.jar
+ENTRYPOINT java -jar /server/app.jar

@@ -21,7 +21,7 @@ public class KafkaService {
         this.store = store;
     }
 
-    @Scheduled(fixedDelay = 60_000)
+    @Scheduled(fixedDelay = 86_400_000)
     public void sendOrder() {
         System.out.println("start sendOrder");
         List<Passport> passports = store.findExpired();
