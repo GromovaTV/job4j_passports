@@ -10,10 +10,15 @@ services:
       context: ./client/
       dockerfile: Dockerfile
     networks:
-      - traefik
-      - kafka
+      traefik:
+        ipv4_address: 172.24.0.11
+      passport:
+      postgres:
     environment:
       SERVER_PASSPORT_URL: "http://${SERVER_PROJECT_NAME}:8080/"
+      DB_URL: "${DB_URL}"
+      DB_USER: "${DB_USER}"
+      DB_PASSWORD: "${DB_PASSWORD}"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.${CLIENT_PROJECT_NAME}.rule=Host(`${CLIENT_PROJECT_NAME}.${TRAEFIK_CLIENT_HOST_SUFFIX}`)"
@@ -21,6 +26,7 @@ services:
       - "traefik.http.routers.${CLIENT_PROJECT_NAME}.service=${CLIENT_PROJECT_NAME}"
       - "traefik.http.routers.${CLIENT_PROJECT_NAME}.tls.certresolver=myresolver"
       - "traefik.http.services.${CLIENT_PROJECT_NAME}.loadbalancer.server.port=8082"
+      - "traefik.docker.network=traefik"
 
   server:
     image: ${SERVER_PROJECT_NAME}
@@ -32,7 +38,7 @@ services:
       context: ./server/
       dockerfile: Dockerfile
     networks:
-      - traefik
+      - passport
       - postgres
       - kafka
     environment:
@@ -51,16 +57,18 @@ services:
       context: ./mail/
       dockerfile: Dockerfile
     networks:
-      - traefik
+      - passport
       - kafka
     environment:
       KAFKA_URL: "${KAFKA_URL}"
 
 
 networks:
-  postgres:
-    external: true
   traefik:
+    external: true
+  passport:
+    external: true
+  postgres:
     external: true
   kafka:
     external: true

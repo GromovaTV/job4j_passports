@@ -39,4 +39,4 @@ deploy:
     name: ${CI_COMMIT_REF_SLUG}
   script:
     - docker compose -f docker-compose.${CI_ENVIRONMENT_NAME}.yml -p ${PROJECT_NAME} up --build --detach --force-recreate --remove-orphans
-
+    - docker network connect traefik_default passport-client || true

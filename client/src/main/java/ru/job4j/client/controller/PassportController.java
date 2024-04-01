@@ -1,5 +1,6 @@
 package ru.job4j.client.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -13,7 +14,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-public class ClientController {
+@Tag(name = "passport-controller", description = "Passport manipulation API")
+public class PassportController {
 
     @Value("${config.server-passport-url}")
     private String serverUrl;

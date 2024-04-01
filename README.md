@@ -9,6 +9,7 @@ Passport management service.
 * Kafka
 * Spring Boot Data JPA
 * Spring Boot 2
+* Spring Security
 * Java 17
 * Hibernate, PostgreSQL
 * Liquibase
@@ -17,6 +18,10 @@ Passport management service.
 * Checkstyle
 
 ## REST API:
+
+POST: /users/sign-up + body with login and password
+
+POST: /login + body with login and password
 
 GET: /api/find/
 
